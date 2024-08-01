@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería de Fotos</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap">
+    <style>
+        body {
+            font-family: 'Pacifico', cursive;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #e3b1c8;
+            padding: 20px;
+            margin: 0;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header h2 {
+            margin: 10px 0;
+            font-size: 2.5em;
+        }
+        .header h4 {
+            margin: 10px 0;
+            font-size: 1.5em;
+        }
+        .gallery-row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .gallery {
+            margin: 5px;
+            border: 1px solid #ccc;
+            width: 100%;
+            max-width: 300px;
+            overflow: hidden;
+        }
+        .gallery img {
+            width: 100%;
+            height: auto; 
+            object-fit: contain; 
+        }
+        .carousel {
+            width: 100%;
+            max-width: 600px;
+            margin-top: 20px;
+            position: relative;
+        }
+        .carousel video {
+            width: 100%;
+            height: auto;
+            display: none;
+        }
+        .carousel video.active {
+            display: block;
+        }
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            z-index: 100;
+        }
+        .left-arrow {
+            left: 10px;
+        }
+        .right-arrow {
+            right: 10px;
+        }
+        @media (min-width: 768px) {
+            .gallery {
+                width: 40%;
+            }
+            .carousel {
+                width: 80%;
+            }
+        }
+        @media (min-width: 1024px) {
+            .gallery {
+                width: 20%;
+            }
+            .carousel {
+                width: 60%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>FELIZ ANIVERSARIO MI VIDA</h2>
+        <h4>01/08</h4>
+    </div>
+    <div class="gallery-row">
+        <div class="gallery">
+            <img src="img/img1.jpeg" alt="Foto 1">
+        </div>
+        <div class="gallery">
+            <img src="img/img2.jpeg" alt="Foto 2">
+        </div>
+        <div class="gallery">
+            <img src="img/img3.jpeg" alt="Foto 3">
+        </div>
+    </div>
+    <div class="gallery-row">
+        <div class="gallery">
+            <img src="img/img4.jpeg" alt="Foto 4">
+        </div>
+        <div class="gallery">
+            <img src="img/img5.jpeg" alt="Foto 5">
+        </div>
+        <div class="gallery">
+            <img src="img/img6.jpeg" alt="Foto 6">
+        </div>
+    </div>
+    <div class="carousel">
+        <button class="arrow left-arrow">&#10094;</button>
+        <button class="arrow right-arrow">&#10095;</button>
+        <video src="img/vid1.mp4" controls class="active"></video>
+        <video src="img/vid2.mp4" controls></video>
+    </div>
+    <script>
+        let currentImageIndex = 0;
+        const videos = document.querySelectorAll('.carousel video');
+        const totalVideos = videos.length;
+        const leftArrow = document.querySelector('.left-arrow');
+        const rightArrow = document.querySelector('.right-arrow');
+
+        function showVideo(index) {
+            videos[currentImageIndex].classList.remove('active');
+            videos[index].classList.add('active');
+            currentImageIndex = index;
+        }
+
+        function showNextVideo() {
+            showVideo((currentImageIndex + 1) % totalVideos);
+        }
+
+        function showPreviousVideo() {
+            showVideo((currentImageIndex - 1 + totalVideos) % totalVideos);
+        }
+
+        leftArrow.addEventListener('click', showPreviousVideo);
+        rightArrow.addEventListener('click', showNextVideo);
+
+        setInterval(showNextVideo, 60000);
+    </script>
+</body>
+</html>
